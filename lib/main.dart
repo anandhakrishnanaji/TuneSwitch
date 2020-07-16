@@ -9,8 +9,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Online Attendance',
       theme: ThemeData(
-        primarySwatch: Colors.indigo[900],
-        accentColor: Colors.purpleAccent[700],
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.deepPurpleAccent,
+        fontFamily: 'Minecraft'
         //fontFamily: 'Nunito',
       ),
       home: HomePage(),
