@@ -47,6 +47,10 @@ flutter:
    - assets/images/github.gif
    - assets/images/logoas.png
    - assets/images/dialogheart.png
+   - assets/images/cb2
+   - assets/images/aboutus.png
+   - assets/images/bug.png
+   - assets/images/playbutton.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

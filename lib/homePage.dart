@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import './widgets/bottomSheetTile.dart';
+import './widgets/alertBox.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -56,12 +58,60 @@ class _HomePageState extends State<HomePage> {
                           context: context,
                           builder: (context) => Column(
                                 children: <Widget>[
-                                  GestureDetector(child: BottomSheetTile('History'),onTap: null,),
-                                  GestureDetector(child: BottomSheetTile('Stats'),onTap: null,),
-                                  GestureDetector(child: BottomSheetTile('Donate'),onTap: null,),
-                                  GestureDetector(child: BottomSheetTile('Contribute'),onTap: null,),
-                                  GestureDetector(child: BottomSheetTile('Report'),onTap: null,),
-                                  GestureDetector(child: BottomSheetTile('About'),onTap: null,)
+                                  GestureDetector(
+                                      child: BottomSheetTile('History'),
+                                      onTap: null),
+                                  GestureDetector(
+                                      child: BottomSheetTile('Stats'),
+                                      onTap: null),
+                                  GestureDetector(
+                                    child: BottomSheetTile('Donate'),
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertBoxx(
+                                              'Donate',
+                                              'dialogheart.png',
+                                              'If you enjoy the app,\nBuy a Coffee to the developers'));
+                                    },
+                                  ),
+                                  GestureDetector(
+                                    child: BottomSheetTile('Contribute'),
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertBoxx(
+                                              'Contribute',
+                                              'github.gif',
+                                              'Liike to add Features?,\nContribute by visiting https://github.com/anandhakrishnanaji/TuneSwitch'));
+                                    },
+                                  ),
+                                  GestureDetector(
+                                    child: BottomSheetTile('Report'),
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertBoxx(
+                                              'Report',
+                                              'bug.png',
+                                              'Found any interesting bug, Post as an Issue on \nhttps://github.com/anandhakrishnanaji/TuneSwitch/issues'));
+                                    },
+                                  ),
+                                  GestureDetector(
+                                    child: BottomSheetTile('About'),
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertBoxx(
+                                              'About',
+                                              'aboutus.png',
+                                              'anandhakris'));
+                                    },
+                                  )
                                 ],
                               )))
                 ],
