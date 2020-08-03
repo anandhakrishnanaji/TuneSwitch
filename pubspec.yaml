@@ -23,6 +23,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  provider: ^4.3.1
+  http: ^0.12.2
+  shared_preferences: ^0.5.8
+  spotify_sdk: ^0.5.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -50,10 +56,12 @@ flutter:
    - assets/images/cb2
    - assets/images/aboutus.png
    - assets/images/bug.png
-   - assets/images/playbutton.png
-   - assets/images/play.jpg
-   - assets/images/next.jpg
-   - assets/images/previous.jpg
+   - assets/images/play.png
+   - assets/images/next.png
+   - assets/images/previous.png
+   - assets/images/index.jpeg
+   - assets/images/neonpixel.png
+   - assets/images/neonnormal.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

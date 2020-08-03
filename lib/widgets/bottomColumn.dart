@@ -30,16 +30,6 @@ class BottomSheetColumn extends StatelessWidget {
           },
         ),
         GestureDetector(
-          child: BottomSheetTile('Report'),
-          onTap: () {
-            Navigator.of(context).pop();
-            showDialog(
-                context: context,
-                builder: (context) => AlertBoxx('Report', 'bug.png',
-                    'Found any interesting bug, Post as an Issue on \nhttps://github.com/anandhakrishnanaji/TuneSwitch/issues'));
-          },
-        ),
-        GestureDetector(
           child: BottomSheetTile('About'),
           onTap: () {
             Navigator.of(context).pop();
@@ -48,7 +38,17 @@ class BottomSheetColumn extends StatelessWidget {
                 builder: (context) =>
                     AlertBoxx('About', 'aboutus.png', 'anandhakris'));
           },
-        )
+        ),
+        GestureDetector(
+          child: BottomSheetTile('Logout'),
+          onTap: () {
+            Navigator.of(context).pop();
+            showDialog(
+                context: context,
+                builder: (context) => AlertBoxx('Report', 'bug.png',
+                    'Found any interesting bug, Post as an Issue on \nhttps://github.com/anandhakrishnanaji/TuneSwitch/issues'));
+          },
+        ),
       ],
     );
   }
