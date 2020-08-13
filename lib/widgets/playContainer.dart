@@ -1,73 +1,109 @@
-import 'dart:ffi';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 
-class PlayContainer extends StatefulWidget {
-  @override
-  _PlayContainerState createState() => _PlayContainerState();
-}
+import '../providers/auth.dart';
+import './playerState.dart';
 
-class _PlayContainerState extends State<PlayContainer> {
-  bool play=true;
-  bool normal=true;
+class PlayContainer extends StatelessWidget {
+  // Map<String, String> spotdata = {'user': null, 'songid': null};
+  final WebSocketChannel channel =
+      IOWebSocketChannel.connect('ws://192.168.1.22:8000/ws/switch/', headers: {
+    'authorization': 'Token 739b0399f5c2415847623ab1fe820d5e94b467f8'
+  });
+  //bool _connected = false;
 
+  // var locationOptions =
+  //     LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
 
-
-  @override
-  void initState() {
-    
-    super.initState();
-  }
+  // var geolocator = Geolocator();
 
   @override
   Widget build(BuildContext context) {
+    // StreamSubscription posstream = geolocator
+    //     .getPositionStream(locationOptions)
+    //     .listen((Position position) {
+    //   print(position);
+    //   channel.sink.add({'room_name':''});
+    // });
+    // posstream.pause();
+    channel.stream.listen((event) {
+      //print('pls\n\n\n\n');
+      final spotdata = json.decode(event) as Map;
+      print(spotdata['message']['song']);
+      SpotifySdk.play(spotifyUri: spotdata['message']['song']);
+    });
+    //channel.sink.add("anandhakris");
+    // return StreamBuilder(
+    //     stream: SpotifySdk.subscribeConnectionStatus(),
+    //     builder: (ctx, snapshot) {
+    //       _connected = false;
+    //       if (snapshot.data != null) {
+    //         _connected = snapshot.data.connected;
+    //       }
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return Center(
+    //           child: Text(
+    //             'Connecting to spotify.....',
+    //             style: TextStyle(fontSize: 30),
+    //           ),
+    //         );
+    //       }
+    //       if (_connected){
+    //         print(snapshot.connectionState);
+    //         print(snapshot.data);
     return Column(
       children: <Widget>[
-        Text(
-          'Now Playing',
-          style: TextStyle(
-              fontFamily: '8bit',
-              color: Colors.white,
-              fontSize: 50,
-              fontWeight: FontWeight.w700),
-        ),
-        Text(
-          'Track Name',
-          style:
-              TextStyle(fontFamily: '8bit', color: Colors.white, fontSize: 40),
-        ),
-        Text(
-          'Artist,ALbum',
-          style:
-              TextStyle(fontFamily: '8bit', color: Colors.white, fontSize: 20),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 6),
-              image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/index.jpeg',
+        PlayerStateWidget(channel),
+        Consumer<User>(
+          builder: (context, user, child) => FlatButton(
+            child: Align(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  user.normalortravel ? 'TRAVEL' : 'NORMAL',
+                  style: TextStyle(
+                    color: Colors.amber[800],
+                    fontSize: 24,
                   ),
-                  fit: BoxFit.cover)),
-          width: 300,
-          height: 300,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Image.asset(
-                'assets/images/previous.png',
-                height: 50,
-                width: 50,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Image.asset('assets/images/play.png', height: 50, width: 50),
-              Image.asset('assets/images/next.png', height: 50, width: 50)
-            ],
+              alignment: Alignment.bottomRight,
+            ),
+            onPressed: () {
+              // print("klop");
+              // print(jsonEncode({'songid': 'kolash'}));
+              // channel.sink.add(jsonEncode({'songid': 'spotify:track:2T7y8stcEXa9USRnzJ8C5O'}));
+              // if (user.normalortravel)
+              //   posstream.resume();
+              // else
+              //   posstream.pause();
+              // user.setnot(!user.normalortravel);
+            },
           ),
-        )
+        ),
+        // StreamBuilder(
+        //     stream: channel.stream,
+        //     builder: (context, snapshot) {
+        //       return Text(snapshot.hasData ? '${snapshot.data}' : '',
+        //           style: TextStyle(fontSize: 20, color: Colors.white));
+        //     }),
+        // R
       ],
     );
   }
+  // else {
+  //   print(snapshot.data);
+  //   return Text(
+  //     'Connection to Spotify failed ${snapshot.data}',
+  //     style: TextStyle(fontSize: 30),
+  //   );
+  // }});
 }
