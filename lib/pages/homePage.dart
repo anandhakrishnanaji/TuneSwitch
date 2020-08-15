@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    print('build no home');
     return Scaffold(
       //backgroundColor: Colors.black,
       body: Container(

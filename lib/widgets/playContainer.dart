@@ -11,30 +11,27 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../providers/auth.dart';
 import './playerState.dart';
+import '../providers/mode.dart';
 
 class PlayContainer extends StatelessWidget {
   //bool _connected = false;
 
-  // var locationOptions =
-  //     LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+  final locationOptions =
+      LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
 
-  // var geolocator = Geolocator();
+  final geolocator = Geolocator();
 
   @override
   Widget build(BuildContext context) {
+    print('build no\n\n\n\n\n');
+
     final WebSocketChannel channel = IOWebSocketChannel.connect(
         'ws://192.168.1.22:8000/ws/switch/',
         headers: {
           'authorization':
               'Token ${Provider.of<User>(context, listen: false).token}'
         });
-    // StreamSubscription posstream = geolocator
-    //     .getPositionStream(locationOptions)
-    //     .listen((Position position) {
-    //   print(position);
-    //   channel.sink.add({'room_name':''});
-    // });
-    // posstream.pause();
+
     channel.stream.listen((event) {
       print('pls\n\n\n\n');
       final spotdata = json.decode(event) as Map;
@@ -54,6 +51,18 @@ class PlayContainer extends StatelessWidget {
             gravity: ToastGravity.CENTER);
       }
     });
+
+    StreamSubscription posstream = geolocator
+        .getPositionStream(locationOptions)
+        .listen((Position position) {
+      final room = position.latitude.toStringAsFixed(3) +
+          position.longitude.toStringAsFixed(3);
+      print(room);
+      channel.sink.add({'room_name': room});
+    });
+
+    posstream.pause();
+
     //channel.sink.add("anandhakris");
     // return StreamBuilder(
     //     stream: SpotifySdk.subscribeConnectionStatus(),
@@ -73,46 +82,45 @@ class PlayContainer extends StatelessWidget {
     //       if (_connected){
     //         print(snapshot.connectionState);
     //         print(snapshot.data);
-    return Column(
-      children: <Widget>[
-        PlayerStateWidget(channel),
-        Consumer<User>(
-          builder: (context, user, child) => FlatButton(
-            child: Align(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  user.normalortravel ? 'TRAVEL' : 'NORMAL',
-                  style: TextStyle(
-                    color: Colors.amber[800],
-                    fontSize: 24,
+    return ChangeNotifierProvider(
+        create: (_) => Mode(),
+        child: Column(
+          children: <Widget>[
+            PlayerStateWidget(channel),
+            Consumer<Mode>(
+              builder: (context, user, child) => FlatButton(
+                child: Align(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      user.normalortravel ? 'TRAVEL' : 'NORMAL',
+                      style: TextStyle(
+                        color: Colors.amber[800],
+                        fontSize: 24,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
+                  alignment: Alignment.bottomRight,
                 ),
+                onPressed: () {
+                  user.setnot(!user.normalortravel);
+                  if (!user.normalortravel)
+                    posstream.resume();
+                  else
+                    posstream.pause();
+                },
               ),
-              alignment: Alignment.bottomRight,
             ),
-            onPressed: () {
-              // print("klop");
-              // print(jsonEncode({'songid': 'kolash'}));
-              // channel.sink.add(jsonEncode({'songid': 'spotify:track:2T7y8stcEXa9USRnzJ8C5O'}));
-              // if (user.normalortravel)
-              //   posstream.resume();
-              // else
-              //   posstream.pause();
-              // user.setnot(!user.normalortravel);
-            },
-          ),
-        ),
-        // StreamBuilder(
-        //     stream: channel.stream,
-        //     builder: (context, snapshot) {
-        //       return Text(snapshot.hasData ? '${snapshot.data}' : '',
-        //           style: TextStyle(fontSize: 20, color: Colors.white));
-        //     }),
-        // R
-      ],
-    );
+            // StreamBuilder(
+            //     stream: channel.stream,
+            //     builder: (context, snapshot) {
+            //       return Text(snapshot.hasData ? '${snapshot.data}' : '',
+            //           style: TextStyle(fontSize: 20, color: Colors.white));
+            //     }),
+            // R
+          ],
+        ));
   }
   // else {
   //   print(snapshot.data);

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import './albumWidget.dart';
 import '../providers/auth.dart';
+import '../providers/mode.dart';
 
 class PlayerStateWidget extends StatelessWidget {
   final path = 'assets/images/';
@@ -85,7 +86,7 @@ class PlayerStateWidget extends StatelessWidget {
                             await SpotifySdk.pause();
                         },
                       ),
-                      Consumer<User>(
+                      Consumer<Mode>(
                         builder: (context, user, child) => InkWell(
                           onTap: () {
                             if (user.normalortravel)

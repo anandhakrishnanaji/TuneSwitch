@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class User with ChangeNotifier {
   var _username = null;
   var _token = null;
-  bool _normalortravel=true;
+  
 
   get token {
     return _token;
@@ -17,14 +17,7 @@ class User with ChangeNotifier {
     return _username;
   }
 
-  get normalortravel{
-    return _normalortravel;
-  }
-
-  void setnot(bool not){
-    _normalortravel=not;
-    notifyListeners();
-  }
+  
 
   Future<bool> login(String uname, String passw) async {
     const url = 'http://192.168.1.22:8000/switch/login/';
@@ -86,6 +79,5 @@ class User with ChangeNotifier {
     shr.clear();
     _token = null;
     _username = null;
-    _normalortravel=true;
   }
 }
