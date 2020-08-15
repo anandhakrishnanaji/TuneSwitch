@@ -8,7 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="tuneswitch"
+        android:label="TuneSwitch"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.linusu.flutter_web_auth.CallbackActivity" >
-            <intent-filter android:label="flutter_web_auth">
+            <intent-filter android:label="TuneSwitch">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -39,3 +39,4 @@
         </activity>
     </application>
 </manifest>
+

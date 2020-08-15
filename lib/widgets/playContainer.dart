@@ -7,11 +7,12 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../providers/auth.dart';
 import './playerState.dart';
 
-class PlayContainer extends StatelessWidget {  
+class PlayContainer extends StatelessWidget {
   //bool _connected = false;
 
   // var locationOptions =
@@ -21,10 +22,12 @@ class PlayContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final WebSocketChannel channel =
-      IOWebSocketChannel.connect('ws://192.168.1.22:8000/ws/switch/', headers: {
-    'authorization': 'Token ${Provider.of<User>(context,listen: false).token}'
-  });
+    final WebSocketChannel channel = IOWebSocketChannel.connect(
+        'ws://192.168.1.22:8000/ws/switch/',
+        headers: {
+          'authorization':
+              'Token ${Provider.of<User>(context, listen: false).token}'
+        });
     // StreamSubscription posstream = geolocator
     //     .getPositionStream(locationOptions)
     //     .listen((Position position) {
@@ -36,8 +39,20 @@ class PlayContainer extends StatelessWidget {
       print('pls\n\n\n\n');
       final spotdata = json.decode(event) as Map;
       print(spotdata['message']['song']);
-      if(spotdata['message'].containsKey('error')) print('error');
-      else SpotifySdk.play(spotifyUri: spotdata['message']['song']);
+      if (spotdata['message'].containsKey('error')) {
+        const snackbar = SnackBar(
+          content:
+              Text('There is no one present right now, Try again later ..'),
+        );
+        Scaffold.of(context).showSnackBar(snackbar);
+      } else {
+        SpotifySdk.play(spotifyUri: spotdata['message']['song']);
+        Fluttertoast.showToast(
+            msg: 'Song playing is swapped from ${spotdata['message']['user']}',
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: Color.fromRGBO(0, 0, 0, 0.3),
+            gravity: ToastGravity.CENTER);
+      }
     });
     //channel.sink.add("anandhakris");
     // return StreamBuilder(

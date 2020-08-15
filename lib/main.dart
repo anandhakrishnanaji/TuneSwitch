@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
                     LoginScreen.routeName: (ctx) => LoginScreen(),
                     HomePage.routeName: (ctx) => HomePage(),
                     RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
-                  },
+                  },debugShowCheckedModeBanner: false,
                 )));
   }
 }
