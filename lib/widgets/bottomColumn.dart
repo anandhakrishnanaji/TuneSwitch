@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import './bottomSheetTile.dart';
 import './alertBox.dart';
+import '../providers/auth.dart';
+import '../pages/login_page.dart';
 
 class BottomSheetColumn extends StatelessWidget {
   @override
@@ -43,10 +47,9 @@ class BottomSheetColumn extends StatelessWidget {
           child: BottomSheetTile('Logout'),
           onTap: () {
             Navigator.of(context).pop();
-            showDialog(
-                context: context,
-                builder: (context) => AlertBoxx('Report', 'bug.png',
-                    'Found any interesting bug, Post as an Issue on \nhttps://github.com/anandhakrishnanaji/TuneSwitch/issues'));
+            Provider.of<User>(context, listen: false).logout().then((value) =>
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    LoginScreen.routeName, (Route<dynamic> route) => false));
           },
         ),
       ],

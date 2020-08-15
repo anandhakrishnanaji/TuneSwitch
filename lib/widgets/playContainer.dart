@@ -11,12 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import '../providers/auth.dart';
 import './playerState.dart';
 
-class PlayContainer extends StatelessWidget {
-  // Map<String, String> spotdata = {'user': null, 'songid': null};
-  final WebSocketChannel channel =
-      IOWebSocketChannel.connect('ws://192.168.1.22:8000/ws/switch/', headers: {
-    'authorization': 'Token 739b0399f5c2415847623ab1fe820d5e94b467f8'
-  });
+class PlayContainer extends StatelessWidget {  
   //bool _connected = false;
 
   // var locationOptions =
@@ -26,6 +21,10 @@ class PlayContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final WebSocketChannel channel =
+      IOWebSocketChannel.connect('ws://192.168.1.22:8000/ws/switch/', headers: {
+    'authorization': 'Token ${Provider.of<User>(context,listen: false).token}'
+  });
     // StreamSubscription posstream = geolocator
     //     .getPositionStream(locationOptions)
     //     .listen((Position position) {
@@ -34,10 +33,11 @@ class PlayContainer extends StatelessWidget {
     // });
     // posstream.pause();
     channel.stream.listen((event) {
-      //print('pls\n\n\n\n');
+      print('pls\n\n\n\n');
       final spotdata = json.decode(event) as Map;
       print(spotdata['message']['song']);
-      SpotifySdk.play(spotifyUri: spotdata['message']['song']);
+      if(spotdata['message'].containsKey('error')) print('error');
+      else SpotifySdk.play(spotifyUri: spotdata['message']['song']);
     });
     //channel.sink.add("anandhakris");
     // return StreamBuilder(

@@ -20,24 +20,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => User(),
-        child: MaterialApp(
-          title: 'Online Attendance',
-          theme: ThemeData(
-              primarySwatch: Colors.indigo,
-              accentColor: Colors.deepPurpleAccent,
-              fontFamily: 'Minecraft'
-              //fontFamily: 'Nunito',
-              ),
-          // home: FutureBuilder(
-          //   future: Provider.of<User>(context).isloggedin(),
-          //   builder: (context, snapshot) => snapshot.connectionState==ConnectionState.waiting?HomePage():snapshot.data?HomePage():LoginScreen()
-          // ),
-          routes: {
-            "/": (ctx) => HomePage(),
-            HomePage.routeName: (ctx) => HomePage(),
-            RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
-          },
-        ));
+        create: (_) => User(),
+        child: Consumer<User>(
+            builder: (ctx, auth, _) => MaterialApp(
+                  title: 'TuneSwitch',
+                  theme: ThemeData(
+                      primarySwatch: Colors.indigo,
+                      accentColor: Colors.deepPurpleAccent,
+                      fontFamily: 'Minecraft'),
+                  home: FutureBuilder(
+                      future: auth.isloggedin(),
+                      builder: (_, snapshot) =>
+                          (snapshot.data != null && snapshot.data)
+                              ? HomePage()
+                              : LoginScreen()),
+                  routes: {
+                    LoginScreen.routeName: (ctx) => LoginScreen(),
+                    HomePage.routeName: (ctx) => HomePage(),
+                    RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
+                  },
+                )));
   }
 }

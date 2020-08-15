@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import './registrationPage.dart';
+import '../providers/auth.dart';
+import '../widgets/alertBox.dart';
+import './homePage.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = 'loginscreen';
@@ -80,13 +85,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 : _isntValidPassword = false;
           });
           if (!_isntValidUsername && !_isntValidPassword) {
-            
-
-
-
-
-
-
+            Provider.of<User>(context, listen: false)
+                .login(usernamet.text, passwordt.text)
+                .then((value) {
+              if (value) Navigator.of(context).pushNamed(HomePage.routeName);
+            }).catchError((e) {
+              print(e.toString());
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertBoxx('Login Failed!',
+                      'loginfailed.png', e.toString()));
+            });
           }
         },
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
@@ -128,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                             color: Colors.greenAccent[400],
                             fontSize: 50,
-                            backgroundColor: Color.fromRGBO(5, 19, 48, 1))),
+                            backgroundColor: Color.fromRGBO(32, 21, 89, 1))),
                   )
                 ]),
               ),
@@ -149,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Sign Up instead',
                             style: TextStyle(
                                 color: Colors.white,
-                                backgroundColor: Color.fromRGBO(5, 19, 48, 1),
+                                backgroundColor: Color.fromRGBO(32, 21, 89, 1),
                                 fontSize: 24),
                           ))
                     ]),

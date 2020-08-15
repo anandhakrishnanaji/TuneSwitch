@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import './homePage.dart';
+import '../providers/auth.dart';
+import '../widgets/alertBox.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/regpage';
@@ -71,11 +76,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ? _isntValidPassword2 = true
                 : _isntValidPassword2 = false;
           });
-          if (!_isntValidPassword && !_isntValidPassword2) {}
+          if (!_isntValidPassword && !_isntValidPassword2) {
+            Provider.of<User>(context, listen: false)
+                .register(usernamet.text, passwordt.text)
+                .then((value) {
+              if (value) Navigator.of(context).pushNamed(HomePage.routeName);
+            }).catchError((e) => showDialog(
+                    context: context,
+                    builder: (context) => AlertBoxx('Registration Failed !!',
+                        'loginfailed.png', e.toString())));
+          }
         },
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         color: Colors.lightBlueAccent,
-        child: const Text('Register',style: TextStyle(color: Colors.white, fontSize: 24)),
+        child: const Text('Register',
+            style: TextStyle(color: Colors.white, fontSize: 24)),
       ),
       //    ),
     );
@@ -108,7 +123,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 style: TextStyle(
                     fontSize: 40,
                     color: Colors.white,
-                    backgroundColor: Color.fromRGBO(5, 19, 48, 1)),
+                    backgroundColor: Color.fromRGBO(32, 21, 89, 1)),
               ),
               const SizedBox(height: 48.0),
               usertf(),
@@ -128,7 +143,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: const Text('Login instead',
                               style: TextStyle(
                                   color: Colors.white,
-                                  backgroundColor: Color.fromRGBO(5, 19, 48, 1),
+                                  backgroundColor:
+                                      Color.fromRGBO(32, 21, 89, 1),
                                   fontSize: 24)))
                     ]),
             ],

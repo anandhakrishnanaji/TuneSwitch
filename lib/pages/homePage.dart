@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/neonnormal.png'),
+                image: AssetImage('assets/images/neonnormal.jpg'),
                 fit: BoxFit.cover)),
         child: Column(
           children: <Widget>[
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Image.asset(
-                    'assets/images/logoas.png',
+                    'assets/images/logoassmall.png',
                     height: 60,
                     width: 60,
                   ),

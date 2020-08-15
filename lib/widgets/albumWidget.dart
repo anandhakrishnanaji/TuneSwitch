@@ -16,7 +16,7 @@ class AlbumWidget extends StatelessWidget {
                     image:
                         snapshot.connectionState == ConnectionState.waiting ||
                                 snapshot.hasError || snapshot.data==null
-                            ? AssetImage('assets/images/index.jpeg')
+                            ? AssetImage('assets/images/index.jpg')
                             : MemoryImage(snapshot.data),
                     fit: BoxFit.cover)),
             width: 300,

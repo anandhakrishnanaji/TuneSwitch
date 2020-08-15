@@ -27,7 +27,7 @@ class PlayerStateWidget extends StatelessWidget {
           if (snapshot.data != null && snapshot.data.track != null) {
             PlayerState playerstate = snapshot.data;
             if (!initialsend) {
-              print('initial\n\n\n');
+              print('initial\n\n\n\n');
               channel.sink.add(jsonEncode({'songid': playerstate.track.uri}));
               initialsend = true;
             }

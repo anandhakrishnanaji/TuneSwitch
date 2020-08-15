@@ -62,10 +62,11 @@ flutter:
    - assets/images/play.png
    - assets/images/next.png
    - assets/images/previous.png
-   - assets/images/index.jpeg
-   - assets/images/neonpixel.png
-   - assets/images/neonnormal.png
+   - assets/images/index.jpg
+   - assets/images/logoassmall.png
+   - assets/images/neonnormal.jpg
    - assets/images/pause.png
+   - assets/images/loginfailed.png
    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
