@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:flutter/services.dart';
 
 import './providers/auth.dart';
 import './pages/homePage.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   await SpotifySdk.connectToSpotifyRemote(
       clientId: DotEnv().env['CLIENT_ID'],
       redirectUrl: DotEnv().env['REDIRECT_URL']);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 
@@ -38,7 +40,8 @@ class MyApp extends StatelessWidget {
                     LoginScreen.routeName: (ctx) => LoginScreen(),
                     HomePage.routeName: (ctx) => HomePage(),
                     RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
-                  },debugShowCheckedModeBanner: false,
+                  },
+                  debugShowCheckedModeBanner: false,
                 )));
   }
 }

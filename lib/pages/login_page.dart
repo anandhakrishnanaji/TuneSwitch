@@ -93,8 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
               print(e.toString());
               showDialog(
                   context: context,
-                  builder: (context) => AlertBoxx('Login Failed!',
-                      'loginfailed.png', e.toString()));
+                  builder: (context) => AlertBoxx(
+                      'Login Failed!', 'loginfailed.png', e.toString()));
             });
           }
         },
@@ -116,10 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       //backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage('assets/images/bgscreen.jpg'))),
@@ -132,12 +133,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Stack(children: <Widget>[
                   logo,
                   Padding(
-                    padding: const EdgeInsets.only(top: 180),
+                    padding: EdgeInsets.only(top: 0.246 * height),
                     child: Text('TuneSwitch',
                         style: TextStyle(
                             color: Colors.greenAccent[400],
                             fontSize: 50,
-                            backgroundColor: Color.fromRGBO(32, 21, 89, 1))),
+                            backgroundColor:
+                                const Color.fromRGBO(32, 21, 89, 1))),
                   )
                 ]),
               ),

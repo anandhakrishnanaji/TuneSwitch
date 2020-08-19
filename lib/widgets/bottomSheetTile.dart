@@ -5,12 +5,15 @@ class BottomSheetTile extends StatelessWidget {
   BottomSheetTile(this.text);
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.all(19.2),
+      padding: EdgeInsets.symmetric(
+          horizontal: 0.04667 * width, vertical: 0.02625 * height),
       child: Center(
           child: Text(
         text,
-        style: TextStyle(fontSize: 30),
+        style: const TextStyle(fontSize: 30),
       )),
       decoration: BoxDecoration(
           color: Colors.blueGrey, border: Border.all(color: Colors.black)),

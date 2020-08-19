@@ -110,7 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       //backgroundColor:Colors.white,
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
+            image: const DecorationImage(
                 image: AssetImage('assets/images/bgscreen.jpg'),
                 fit: BoxFit.cover)),
         child: Center(

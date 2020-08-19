@@ -3,11 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class User with ChangeNotifier {
   var _username = null;
   var _token = null;
-  
+  static const urlpath = '192.168.1.22:8000';
 
   get token {
     return _token;
@@ -17,10 +16,8 @@ class User with ChangeNotifier {
     return _username;
   }
 
-  
-
   Future<bool> login(String uname, String passw) async {
-    const url = 'http://192.168.1.22:8000/switch/login/';
+    const url = 'http://$urlpath/switch/login/';
     try {
       final response =
           await http.post(url, body: {'username': uname, 'password': passw});
@@ -47,7 +44,7 @@ class User with ChangeNotifier {
   }
 
   Future<bool> register(String uname, String passw) async {
-    const url = 'http://192.168.1.22:8000/switch/userprofile/';
+    const url = 'http://$urlpath/switch/userprofile/';
     try {
       final response =
           await http.post(url, body: {'username': uname, 'password': passw});

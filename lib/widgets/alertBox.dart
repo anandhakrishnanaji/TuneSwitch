@@ -5,8 +5,11 @@ class AlertBoxx extends StatelessWidget {
   AlertBoxx(this.text, this.path, this.des);
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 150, horizontal: 40),
+      padding: EdgeInsets.symmetric(
+          vertical: 0.205 * height, horizontal: 0.09722 * width),
       child: AlertDialog(
         backgroundColor: Colors.blueGrey[400],
         content: Column(
@@ -19,23 +22,23 @@ class AlertBoxx extends StatelessWidget {
                 onTap: () => Navigator.of(context).pop(),
                 child: Image.asset(
                   'assets/images/cb2',
-                  height: 30,
-                  width: 30,
+                  height: 0.41 * height,
+                  width: 0.41 * height,
                 ),
               ),
             ),
             Text(
               text,
-              style: TextStyle(fontSize: 40),
+              style: const TextStyle(fontSize: 40),
             ),
             Image.asset(
               'assets/images/$path',
-              height: 140,
-              width: 140,
+              height: 0.191 * height,
+              width: 0.191 * height,
             ),
             Text(
               des,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
               ),
               textAlign: TextAlign.center,

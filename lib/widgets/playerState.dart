@@ -18,6 +18,8 @@ class PlayerStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     print('kj');
     return StreamBuilder<PlayerState>(
         initialData: PlayerState(null, true, 1, 1, null, null),
@@ -27,15 +29,16 @@ class PlayerStateWidget extends StatelessWidget {
           print('hello');
           if (snapshot.data != null && snapshot.data.track != null) {
             PlayerState playerstate = snapshot.data;
-            if (!initialsend) {
+            if (!initialsend && playerstate.track.uri != null) {
               print('initial\n\n\n\n');
               channel.sink.add(jsonEncode({'songid': playerstate.track.uri}));
               initialsend = true;
             }
             final p = snapshot.data.isPaused ? 'play.png' : 'pause.png';
+            print(playerstate.track.name);
             return Column(
               children: <Widget>[
-                Text(
+                const Text(
                   'Now Playing',
                   style: TextStyle(
                       fontFamily: '8bit',
@@ -47,7 +50,7 @@ class PlayerStateWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   child: Text(
                     '${playerstate.track.name}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: '8bit', color: Colors.white, fontSize: 40),
                     softWrap: true,
                   ),
@@ -56,7 +59,7 @@ class PlayerStateWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   child: Text(
                     '${playerstate.track.artist.name},${playerstate.track.album.name}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: '8bit', color: Colors.white, fontSize: 20),
                   ),
                 ),
@@ -89,7 +92,8 @@ class PlayerStateWidget extends StatelessWidget {
                       Consumer<Mode>(
                         builder: (context, user, child) => InkWell(
                           onTap: () {
-                            if (user.normalortravel)
+                            if (user.normalortravel &&
+                                playerstate.track.uri != null)
                               channel.sink.add(jsonEncode(
                                   {'songid': playerstate.track.uri}));
                           },
@@ -103,7 +107,7 @@ class PlayerStateWidget extends StatelessWidget {
               ],
             );
           } else
-            return Center(
+            return const Center(
               child: Text(
                 'Not Connected',
                 style: TextStyle(fontSize: 30),
