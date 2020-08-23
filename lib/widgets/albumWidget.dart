@@ -11,7 +11,7 @@ class AlbumWidget extends StatelessWidget {
         future: SpotifySdk.getImage(imageUri: imageuri),
         builder: (ctx, snapshot) {
           return Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(0.0487 * width),
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black, width: 7),
                 image: DecorationImage(

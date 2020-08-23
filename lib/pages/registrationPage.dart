@@ -20,7 +20,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       _isntValidUsername = false,
       _isloading = false;
 
-  Widget passwordtf(String text, String errortext) {
+  Widget passwordtf(
+      String text, String errortext, double height, double width) {
     bool _foo = text == "Password" ? _isntValidPassword : _isntValidPassword2;
     return TextField(
       controller: text == "Password" ? passwordt : password2t,
@@ -30,69 +31,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         fillColor: Colors.blueGrey,
         filled: true,
         errorText: _foo ? errortext : null,
-        labelStyle: const TextStyle(fontSize: 20),
+        labelStyle: TextStyle(fontSize: 0.3 * height),
         hintText: !_foo ? text : null,
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 25.0),
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: 0.0486 * width, vertical: 0.0342 * height),
         border: OutlineInputBorder(),
         prefixIcon: const Icon(
           Icons.lock,
           color: Colors.black,
         ),
       ),
-    );
-  }
-
-  Widget usertf() {
-    return TextField(
-      controller: usernamet,
-      autofocus: false,
-      decoration: InputDecoration(
-        fillColor: Colors.blueGrey,
-        filled: true,
-        errorText: _isntValidUsername ? "Username already exists" : null,
-        labelStyle: const TextStyle(fontSize: 20),
-        hintText: !_isntValidUsername ? "Username" : null,
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 25.0),
-        border: OutlineInputBorder(),
-        prefixIcon: const Icon(
-          Icons.person,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
-  Widget registerButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      //  child: ButtonTheme(minWidth: 20,
-      child: RaisedButton(
-        onPressed: () {
-          setState(() {
-            (passwordt.text.length < 6)
-                ? _isntValidPassword = true
-                : _isntValidPassword = false;
-            (password2t.text != passwordt.text)
-                ? _isntValidPassword2 = true
-                : _isntValidPassword2 = false;
-          });
-          if (!_isntValidPassword && !_isntValidPassword2) {
-            Provider.of<User>(context, listen: false)
-                .register(usernamet.text, passwordt.text)
-                .then((value) {
-              if (value) Navigator.of(context).pushNamed(HomePage.routeName);
-            }).catchError((e) => showDialog(
-                    context: context,
-                    builder: (context) => AlertBoxx('Registration Failed !!',
-                        'loginfailed.png', e.toString())));
-          }
-        },
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-        color: Colors.lightBlueAccent,
-        child: const Text('Register',
-            style: TextStyle(color: Colors.white, fontSize: 24)),
-      ),
-      //    ),
     );
   }
 
@@ -106,6 +54,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       //backgroundColor:Colors.white,
       body: Container(
@@ -116,36 +66,94 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: Center(
           child: ListView(
             shrinkWrap: true,
-            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+            padding: EdgeInsets.symmetric(horizontal: 0.0584 * width),
             children: <Widget>[
-              const Text(
+              Text(
                 'Sign Up',
                 style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 0.054 * height,
                     color: Colors.white,
                     backgroundColor: Color.fromRGBO(32, 21, 89, 1)),
               ),
-              const SizedBox(height: 48.0),
-              usertf(),
-              const SizedBox(height: 15.0),
+              SizedBox(height: 0.0657 * height),
+              TextField(
+                controller: usernamet,
+                autofocus: false,
+                decoration: InputDecoration(
+                  fillColor: Colors.blueGrey,
+                  filled: true,
+                  errorText:
+                      _isntValidUsername ? "Username already exists" : null,
+                  labelStyle: TextStyle(fontSize: 0.3 * height),
+                  hintText: !_isntValidUsername ? "Username" : null,
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 0.0486 * width, vertical: 0.0342 * height),
+                  border: OutlineInputBorder(),
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SizedBox(height: 0.0205 * height),
+              passwordtf("Password",
+                  "Length of password must be greater than 6", height, width),
+              SizedBox(height: 0.0205 * height),
               passwordtf(
-                  "Password", "Length of password must be greater than 6"),
-              const SizedBox(height: 15.0),
-              passwordtf("Confirm Password", "Passowrds do not match"),
-              const SizedBox(height: 24.0),
+                  "Confirm Password", "Passowrds do not match", height, width),
+              SizedBox(height: 0.0329 * height),
               _isloading
                   ? const Center(child: CircularProgressIndicator())
                   : Column(children: <Widget>[
-                      registerButton(context),
-                      const SizedBox(height: 20),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 0.0219 * height),
+                        //  child: ButtonTheme(minWidth: 20,
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              (passwordt.text.length < 6)
+                                  ? _isntValidPassword = true
+                                  : _isntValidPassword = false;
+                              (password2t.text != passwordt.text)
+                                  ? _isntValidPassword2 = true
+                                  : _isntValidPassword2 = false;
+                            });
+                            if (!_isntValidPassword && !_isntValidPassword2) {
+                              Provider.of<User>(context, listen: false)
+                                  .register(usernamet.text, passwordt.text)
+                                  .then((value) {
+                                if (value)
+                                  Navigator.of(context)
+                                      .pushNamed(HomePage.routeName);
+                              }).catchError((e) => showDialog(
+                                      context: context,
+                                      builder: (context) => AlertBoxx(
+                                          'Registration Failed !!',
+                                          'loginfailed.png',
+                                          e.toString())));
+                            }
+                          },
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 0.121 * width,
+                              vertical: 0.0137 * height),
+                          color: Colors.lightBlueAccent,
+                          child: Text('Register',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 0.0328 * height)),
+                        ),
+                        //    ),
+                      ),
+                      SizedBox(height: 0.0273 * height),
                       FlatButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Login instead',
+                          child: Text('Login instead',
                               style: TextStyle(
                                   color: Colors.white,
                                   backgroundColor:
                                       Color.fromRGBO(32, 21, 89, 1),
-                                  fontSize: 24)))
+                                  fontSize: 0.0329 * height)))
                     ]),
             ],
           ),

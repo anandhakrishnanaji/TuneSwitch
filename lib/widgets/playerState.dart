@@ -7,7 +7,6 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:provider/provider.dart';
 
 import './albumWidget.dart';
-import '../providers/auth.dart';
 import '../providers/mode.dart';
 
 class PlayerStateWidget extends StatelessWidget {
@@ -38,13 +37,16 @@ class PlayerStateWidget extends StatelessWidget {
             print(playerstate.track.name);
             return Column(
               children: <Widget>[
-                const Text(
-                  'Now Playing',
-                  style: TextStyle(
-                      fontFamily: '8bit',
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.w700),
+                const FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    'Now Playing',
+                    style: TextStyle(
+                        fontFamily: '8bit',
+                        color: Colors.white,
+                        fontSize: 48,
+                        fontWeight: FontWeight.w700),
+                  ),
                 ),
                 FittedBox(
                   fit: BoxFit.fitWidth,
@@ -52,7 +54,7 @@ class PlayerStateWidget extends StatelessWidget {
                     '${playerstate.track.name}',
                     style: const TextStyle(
                         fontFamily: '8bit', color: Colors.white, fontSize: 40),
-                    softWrap: true,
+                    // softWrap: true,
                   ),
                 ),
                 FittedBox(
@@ -65,15 +67,15 @@ class PlayerStateWidget extends StatelessWidget {
                 ),
                 AlbumWidget(playerstate.track.imageUri),
                 Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(0.0273 * height),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       InkWell(
                         child: Image.asset(
                           'assets/images/previous.png',
-                          height: 50,
-                          width: 50,
+                          height: 0.122 * width,
+                          width: 0.122 * width,
                         ),
                         onTap: () async {
                           SpotifySdk.skipPrevious();
@@ -81,7 +83,7 @@ class PlayerStateWidget extends StatelessWidget {
                       ),
                       InkWell(
                         child: Image.asset('assets/images/$p',
-                            height: 50, width: 50),
+                            height: 0.122 * width, width: 0.122 * width),
                         onTap: () async {
                           if (snapshot.data.isPaused)
                             await SpotifySdk.resume();
@@ -98,7 +100,7 @@ class PlayerStateWidget extends StatelessWidget {
                                   {'songid': playerstate.track.uri}));
                           },
                           child: Image.asset('assets/images/next.png',
-                              height: 50, width: 50),
+                              height: 0.122 * width, width: 0.122 * width),
                         ),
                       )
                     ],
@@ -107,10 +109,10 @@ class PlayerStateWidget extends StatelessWidget {
               ],
             );
           } else
-            return const Center(
+            return Center(
               child: Text(
                 'Not Connected',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 0.041 * height),
               ),
             );
         });

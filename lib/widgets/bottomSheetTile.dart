@@ -13,7 +13,7 @@ class BottomSheetTile extends StatelessWidget {
       child: Center(
           child: Text(
         text,
-        style: const TextStyle(fontSize: 30),
+        style: TextStyle(fontSize: 0.041 * height),
       )),
       decoration: BoxDecoration(
           color: Colors.blueGrey, border: Border.all(color: Colors.black)),

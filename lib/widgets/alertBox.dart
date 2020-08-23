@@ -22,14 +22,14 @@ class AlertBoxx extends StatelessWidget {
                 onTap: () => Navigator.of(context).pop(),
                 child: Image.asset(
                   'assets/images/cb2',
-                  height: 0.41 * height,
-                  width: 0.41 * height,
+                  height: 0.041 * height,
+                  width: 0.041 * height,
                 ),
               ),
             ),
             Text(
               text,
-              style: const TextStyle(fontSize: 40),
+              style: TextStyle(fontSize: 0.054 * height),
             ),
             Image.asset(
               'assets/images/$path',
@@ -38,8 +38,8 @@ class AlertBoxx extends StatelessWidget {
             ),
             Text(
               des,
-              style: const TextStyle(
-                fontSize: 20,
+              style: TextStyle(
+                fontSize: 0.027 * height,
               ),
               textAlign: TextAlign.center,
             ),

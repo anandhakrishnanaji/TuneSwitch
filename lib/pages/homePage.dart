@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:spotify_sdk/spotify_sdk.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../widgets/bottomColumn.dart';
 import '../widgets/playContainer.dart';
@@ -41,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                     'TuneSwitch',
                     style: TextStyle(
                       color: Colors.greenAccent[400],
-                      fontSize: 40,
+                      fontSize: 0.0547*height,
                     ),
                   ),
                   SizedBox(
