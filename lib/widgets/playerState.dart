@@ -57,12 +57,17 @@ class PlayerStateWidget extends StatelessWidget {
                     // softWrap: true,
                   ),
                 ),
-                FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    '${playerstate.track.artist.name},${playerstate.track.album.name}',
-                    style: const TextStyle(
-                        fontFamily: '8bit', color: Colors.white, fontSize: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      '${playerstate.track.artist.name},${playerstate.track.album.name}',
+                      style: const TextStyle(
+                          fontFamily: '8bit',
+                          color: Colors.white,
+                          fontSize: 20),
+                    ),
                   ),
                 ),
                 AlbumWidget(playerstate.track.imageUri),
@@ -98,6 +103,7 @@ class PlayerStateWidget extends StatelessWidget {
                                 playerstate.track.uri != null)
                               channel.sink.add(jsonEncode(
                                   {'songid': playerstate.track.uri}));
+                            print('next...');
                           },
                           child: Image.asset('assets/images/next.png',
                               height: 0.122 * width, width: 0.122 * width),

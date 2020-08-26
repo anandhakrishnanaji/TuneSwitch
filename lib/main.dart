@@ -8,6 +8,7 @@ import './providers/auth.dart';
 import './pages/homePage.dart';
 import './pages/login_page.dart';
 import './pages/registrationPage.dart';
+import './pages/newbox.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
@@ -21,6 +22,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print('kolare');
     return ChangeNotifierProvider(
         create: (_) => User(),
         child: Consumer<User>(
@@ -30,16 +32,17 @@ class MyApp extends StatelessWidget {
                       primarySwatch: Colors.indigo,
                       accentColor: Colors.deepPurpleAccent,
                       fontFamily: 'Minecraft'),
-                  home: FutureBuilder(
-                      future: auth.isloggedin(),
-                      builder: (_, snapshot) =>
-                          (snapshot.data != null && snapshot.data)
-                              ? HomePage()
-                              : LoginScreen()),
                   routes: {
+                    "/": (ctx) => FutureBuilder(
+                        future: auth.isloggedin(),
+                        builder: (_, snapshot) =>
+                            (snapshot.data != null && snapshot.data)
+                                ? HomePage()
+                                : LoginScreen()),
                     LoginScreen.routeName: (ctx) => LoginScreen(),
                     HomePage.routeName: (ctx) => HomePage(),
                     RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
+                    NewBox.routeName: (ctx) => NewBox(),
                   },
                   debugShowCheckedModeBanner: false,
                 )));

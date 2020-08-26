@@ -11,6 +11,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../providers/auth.dart';
 import './playerState.dart';
 import '../providers/mode.dart';
+import './channelcreate.dart';
+import '../pages/newbox.dart';
 
 class PlayContainer extends StatelessWidget {
   @override
@@ -52,45 +54,77 @@ class PlayContainer extends StatelessWidget {
       }
     });
 
+    print('rebuilding');
+
     return ChangeNotifierProvider(
         create: (_) => Mode(),
         child: Column(
           children: <Widget>[
             PlayerStateWidget(channel),
-            Consumer<Mode>(
-              builder: (context, user, child) => FlatButton(
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      user.normalortravel ? 'TRAVEL' : 'NORMAL',
-                      style: TextStyle(
-                        color: Colors.amber[800],
-                        fontSize: 24,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  alignment: Alignment.bottomRight,
-                ),
-                onPressed: () {
-                  print(user.normalortravel);
-                  if (user.normalortravel) {
-                    posstream = geolocator
-                        .getPositionStream(locationOptions)
-                        .listen((Position position) {
-                      final room = position.latitude.toStringAsFixed(3) +
-                          position.longitude.toStringAsFixed(3);
-                      print(room);
-                      channel.sink.add(jsonEncode({'room_name': room}));
-                    });
-                  } else {
-                    posstream.cancel();
-                    channel.sink.add(jsonEncode({'room_name': 'online'}));
-                  }
-                  user.setnot(!user.normalortravel);
-                },
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Consumer<Mode>(
+                        builder: (context, user, child) => InkWell(
+                              onTap: () => showDialog(
+                                context: context,
+                                builder: (_) => ChannelBox(channel, user,()=>posstream.cancel()),
+                              ),
+                              // onTap: () => Navigator.of(context).pushNamed(
+                              //     NewBox.routeName,
+                              //     arguments: (text) => print(text)),
+                              child: Image.asset(
+                                'assets/images/group.png',
+                                height: 60,
+                                width: 60,
+                              ),
+                            )),
+                    Consumer<Mode>(
+                      builder: (context, user, child) => user.isgroup
+                          ? Image.asset(
+                              'assets/images/group.png',
+                              height: 60,
+                              width: 60,
+                            )
+                          : InkWell(
+                              child: Column(
+                                children: <Widget>[
+                                  Image.asset(
+                                    user.normalortravel
+                                        ? 'assets/images/normal.png'
+                                        : 'assets/images/travel.png',
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                  Text(
+                                      user.normalortravel ? 'NORMAL' : 'TRAVEL')
+                                ],
+                              ),
+                              onTap: () {
+                                print(user.normalortravel);
+                                if (user.normalortravel) {
+                                  posstream = geolocator
+                                      .getPositionStream(locationOptions)
+                                      .listen((Position position) {
+                                    final room = position.latitude
+                                            .toStringAsFixed(3) +
+                                        position.longitude.toStringAsFixed(3);
+                                    print(room);
+                                    channel.sink
+                                        .add(jsonEncode({'room_name': room}));
+                                  });
+                                } else {
+                                  posstream.cancel();
+                                  channel.sink
+                                      .add(jsonEncode({'room_name': 'online'}));
+                                }
+                                user.setnot(!user.normalortravel);
+                              },
+                            ),
+                    )
+                  ]),
             ),
           ],
         ));

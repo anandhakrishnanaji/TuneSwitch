@@ -33,6 +33,7 @@ dependencies:
   flutter_launcher_icons: ^0.7.5
   flutter_launcher_name: ^0.0.1
   fluttertoast: ^7.0.2
+  crypto: ^2.1.4
 
 
 
@@ -78,6 +79,11 @@ flutter:
    - assets/images/neonnormal.jpg
    - assets/images/pause.png
    - assets/images/loginfailed.png
+   - assets/images/githuba.png
+   - assets/images/group.png
+   - assets/images/normal.png
+   - assets/images/travel.png
+   - assets/images/power.png
    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
