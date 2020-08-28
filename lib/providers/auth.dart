@@ -4,17 +4,16 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User with ChangeNotifier {
-  var _username = null;
-  var _token = null;
+  String _username = null;
+  String _token = null;
+  
   static const urlpath = '192.168.1.22:8000';
 
-  get token {
-    return _token;
-  }
+  get token => _token;
 
-  get username {
-    return _username;
-  }
+  get username => _username;
+
+  
 
   Future<bool> login(String uname, String passw) async {
     const url = 'http://$urlpath/switch/login/';

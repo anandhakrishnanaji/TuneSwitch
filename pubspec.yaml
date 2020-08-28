@@ -84,6 +84,9 @@ flutter:
    - assets/images/normal.png
    - assets/images/travel.png
    - assets/images/power.png
+   - assets/images/lovew.png
+   - assets/images/love1.png
+   - assets/images/lovpop.gif
    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

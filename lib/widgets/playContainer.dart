@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:tuneswitch/providers/like.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
@@ -12,7 +13,7 @@ import '../providers/auth.dart';
 import './playerState.dart';
 import '../providers/mode.dart';
 import './channelcreate.dart';
-import '../pages/newbox.dart';
+import '../providers/like.dart';
 
 class PlayContainer extends StatelessWidget {
   @override
@@ -44,20 +45,25 @@ class PlayContainer extends StatelessWidget {
               Text('There is no one present right now, Try again later ..'),
         );
         Scaffold.of(context).showSnackBar(snackbar);
-      } else {
+      } else if (spotdata['message'].containsKey('song')) {
         SpotifySdk.play(spotifyUri: spotdata['message']['song']);
+        Provider.of<Like>(context, listen: false)
+            .setcsonguname(spotdata['message']['user']);
         Fluttertoast.showToast(
             msg: 'Song playing is swapped from ${spotdata['message']['user']}',
             toastLength: Toast.LENGTH_LONG,
             backgroundColor: Color.fromRGBO(0, 0, 0, 0.3),
             gravity: ToastGravity.CENTER);
+      } else {
+        Provider.of<Like>(context, listen: false)
+            .setgotlikes(spotdata['message']['liked']);
       }
     });
 
     print('rebuilding');
 
     return ChangeNotifierProvider(
-        create: (_) => Mode(),
+        create: (context) => Mode(),
         child: Column(
           children: <Widget>[
             PlayerStateWidget(channel),
@@ -70,7 +76,8 @@ class PlayContainer extends StatelessWidget {
                         builder: (context, user, child) => InkWell(
                               onTap: () => showDialog(
                                 context: context,
-                                builder: (_) => ChannelBox(channel, user,()=>posstream.cancel()),
+                                builder: (_) => ChannelBox(
+                                    channel, user, () => posstream.cancel()),
                               ),
                               // onTap: () => Navigator.of(context).pushNamed(
                               //     NewBox.routeName,
@@ -80,6 +87,25 @@ class PlayContainer extends StatelessWidget {
                                 height: 60,
                                 width: 60,
                               ),
+                            )),
+                    Consumer<Like>(
+                        builder: (context, user, child) => InkWell(
+                              child: Image.asset(
+                                user.isliked
+                                    ? 'images/assets/love1.png'
+                                    : 'images/assets/lovew.png',
+                                height: 60,
+                                width: 60,
+                              ),
+                              onTap: () {
+                                if (!user.isliked) {
+                                  final uname = user.csongusername;
+                                  if (user != null)
+                                    channel.sink
+                                        .add(jsonEncode({'liked': uname}));
+                                  user.setliked(true);
+                                }
+                              },
                             )),
                     Consumer<Mode>(
                       builder: (context, user, child) => user.isgroup
