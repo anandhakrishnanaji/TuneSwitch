@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
-import 'package:tuneswitch/providers/like.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
@@ -35,10 +34,13 @@ class PlayContainer extends StatelessWidget {
           'Token ${Provider.of<User>(context, listen: false).token}'
     });
 
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     channel.stream.listen((event) {
       print('pls\n\n\n\n');
       final spotdata = json.decode(event) as Map;
-      print(spotdata['message']['song']);
+      print(spotdata.toString());
       if (spotdata['message'].containsKey('error')) {
         const snackbar = SnackBar(
           content:
@@ -46,15 +48,25 @@ class PlayContainer extends StatelessWidget {
         );
         Scaffold.of(context).showSnackBar(snackbar);
       } else if (spotdata['message'].containsKey('song')) {
-        SpotifySdk.play(spotifyUri: spotdata['message']['song']);
-        Provider.of<Like>(context, listen: false)
-            .setcsonguname(spotdata['message']['user']);
-        Fluttertoast.showToast(
-            msg: 'Song playing is swapped from ${spotdata['message']['user']}',
-            toastLength: Toast.LENGTH_LONG,
-            backgroundColor: Color.fromRGBO(0, 0, 0, 0.3),
-            gravity: ToastGravity.CENTER);
+        SpotifySdk.getPlayerState().then((value) {
+          if (value.track.artist == null ||
+              value.track.name == 'Spotify' ||
+              value.track.name == 'Advertisement')
+            SpotifySdk.queue(spotifyUri: spotdata['message']['song']);
+          else
+            SpotifySdk.play(spotifyUri: spotdata['message']['song']);
+
+          Provider.of<Like>(context, listen: false)
+              .setcsonguname(spotdata['message']['user']);
+          Fluttertoast.showToast(
+              msg:
+                  'Song playing is swapped from ${spotdata['message']['user']}',
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Color.fromRGBO(0, 0, 0, 0.3),
+              gravity: ToastGravity.CENTER);
+        });
       } else {
+        print('sholay');
         Provider.of<Like>(context, listen: false)
             .setgotlikes(spotdata['message']['liked']);
       }
@@ -62,13 +74,32 @@ class PlayContainer extends StatelessWidget {
 
     print('rebuilding');
 
+    final _likebutton = Consumer<Like>(builder: (context, user, child) {
+      print('like button loading\n\n\n\n');
+      return InkWell(
+        child: Image.asset(
+          user.isliked ? 'assets/images/love1.png' : 'assets/images/lovew.png',
+          height: 0.082 * height,
+          width: 0.082 * height,
+        ),
+        onTap: () {
+          if (!user.isliked) {
+            final uname = user.csongusername;
+            if (user != null) channel.sink.add(jsonEncode({'like': uname}));
+            user.setliked(true);
+          }
+        },
+      );
+    });
+
     return ChangeNotifierProvider(
         create: (context) => Mode(),
         child: Column(
           children: <Widget>[
             PlayerStateWidget(channel),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 0.0486 * width, vertical: 0.0273 * height),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -84,35 +115,17 @@ class PlayContainer extends StatelessWidget {
                               //     arguments: (text) => print(text)),
                               child: Image.asset(
                                 'assets/images/group.png',
-                                height: 60,
-                                width: 60,
+                                height: 0.082 * height,
+                                width: 0.082 * height,
                               ),
                             )),
-                    Consumer<Like>(
-                        builder: (context, user, child) => InkWell(
-                              child: Image.asset(
-                                user.isliked
-                                    ? 'images/assets/love1.png'
-                                    : 'images/assets/lovew.png',
-                                height: 60,
-                                width: 60,
-                              ),
-                              onTap: () {
-                                if (!user.isliked) {
-                                  final uname = user.csongusername;
-                                  if (user != null)
-                                    channel.sink
-                                        .add(jsonEncode({'liked': uname}));
-                                  user.setliked(true);
-                                }
-                              },
-                            )),
+                    _likebutton,
                     Consumer<Mode>(
                       builder: (context, user, child) => user.isgroup
                           ? Image.asset(
                               'assets/images/group.png',
-                              height: 60,
-                              width: 60,
+                              height: 0.082 * height,
+                              width: 0.082 * height,
                             )
                           : InkWell(
                               child: Column(
@@ -121,8 +134,8 @@ class PlayContainer extends StatelessWidget {
                                     user.normalortravel
                                         ? 'assets/images/normal.png'
                                         : 'assets/images/travel.png',
-                                    height: 60,
-                                    width: 60,
+                                    height: 0.082 * height,
+                                    width: 0.082 * height,
                                   ),
                                   Text(
                                       user.normalortravel ? 'NORMAL' : 'TRAVEL')

@@ -47,7 +47,6 @@ class User with ChangeNotifier {
     try {
       final response =
           await http.post(url, body: {'username': uname, 'password': passw});
-      final jresp = json.decode(response.body) as Map;
       if (response.statusCode != 201)
         throw ('Username already Exists !!!');
       else {

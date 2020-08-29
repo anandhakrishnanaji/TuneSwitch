@@ -25,10 +25,11 @@ class _NewBoxState extends State<NewBox> {
   Widget build(BuildContext context) {
     final callback = ModalRoute.of(context).settings.arguments as Function;
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.blueGrey[400],
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(0.0486 * width),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -42,7 +43,7 @@ class _NewBoxState extends State<NewBox> {
                     _isntvalidgroup ? "Entered Channel ID is Invalid" : null,
                 labelStyle: TextStyle(fontSize: 0.3 * height),
                 hintText: "Channel ID",
-                contentPadding: EdgeInsets.all(5),
+                contentPadding:const  EdgeInsets.all(5),
                 border: OutlineInputBorder(),
                 prefixIcon: const Icon(
                   Icons.group,

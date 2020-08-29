@@ -41,11 +41,10 @@ class _HomePageState extends State<HomePage> {
                   stops: [0.0, 1.0],
                   tileMode: TileMode.clamp)),
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(0.02735 * height),
+                  padding: EdgeInsets.all(0.0273 * height),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -75,12 +74,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 play,
-                // RaisedButton(
-                //   child: Text('kiol'),
-                //   onPressed: () async => await SpotifySdk.connectToSpotifyRemote(
-                //       clientId: DotEnv().env['CLIENT_ID'],
-                //       redirectUrl: DotEnv().env['REDIRECT_URL']),
-                // )
               ],
             ),
           ),

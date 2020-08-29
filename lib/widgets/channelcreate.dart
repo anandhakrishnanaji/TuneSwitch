@@ -25,8 +25,10 @@ class _ChannelBoxState extends State<ChannelBox> {
     final value = widget.value;
     print('hi');
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0.33 * height),
+      padding: EdgeInsets.symmetric(
+          horizontal: 0.0486 * width, vertical: 0.33 * height),
       child: AlertDialog(
         backgroundColor: Colors.blueGrey[400],
         content: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
@@ -49,8 +51,8 @@ class _ChannelBoxState extends State<ChannelBox> {
                     InkWell(
                       child: Image.asset(
                         'assets/images/power.png',
-                        height: 50,
-                        width: 50,
+                        height: 0.0684 * height,
+                        width: 0.0684 * height,
                       ),
                       onTap: () {
                         widget.channel.sink
@@ -69,7 +71,8 @@ class _ChannelBoxState extends State<ChannelBox> {
                     child: RaisedButton(
                       child: Text(
                         'Create Channel',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 0.0273 * height),
                       ),
                       onPressed: () {
                         if (!widget.value.normalortravel) widget.callback();
@@ -96,7 +99,8 @@ class _ChannelBoxState extends State<ChannelBox> {
                     width: double.infinity,
                     child: RaisedButton(
                       child: Text('Join Channel',
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 0.0273 * height)),
                       onPressed: () => Navigator.of(context)
                           .pushNamed(NewBox.routeName, arguments: (text) {
                         if (!widget.value.normalortravel) widget.callback();
@@ -109,21 +113,10 @@ class _ChannelBoxState extends State<ChannelBox> {
                             toastLength: Toast.LENGTH_LONG,
                             backgroundColor: Color.fromRGBO(0, 0, 0, 0.3),
                             gravity: ToastGravity.CENTER);
-                      })
-
-                      // setState(() {
-                      //   isjoin = false;
-                      // });
-                      ,
+                      }),
                     ),
                   )
                 ])
-          // :           NewBox(widget.channel, (text) {
-          //     setState(() {
-          //       value.setgroup(true, text);
-          //       isjoin = true;
-          //     });
-          //   })
         ]),
       ),
     );

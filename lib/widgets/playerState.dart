@@ -8,13 +8,15 @@ import 'package:provider/provider.dart';
 
 import './albumWidget.dart';
 import '../providers/mode.dart';
+import '../providers/like.dart';
 
 class PlayerStateWidget extends StatelessWidget {
   final path = 'assets/images/';
   final WebSocketChannel channel;
+  String csonguri = null;
   bool initialsend = false;
   PlayerStateWidget(this.channel);
-
+  AlbumWidget _albumart;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -28,6 +30,14 @@ class PlayerStateWidget extends StatelessWidget {
           print('hello');
           if (snapshot.data != null && snapshot.data.track != null) {
             PlayerState playerstate = snapshot.data;
+
+            if (csonguri != playerstate.track.uri) {
+              print('thetta\n\n\n');
+              _albumart = new AlbumWidget(playerstate.track.imageUri);
+              csonguri = playerstate.track.uri;
+              Future.delayed(Duration.zero).then((value) async =>
+                  Provider.of<Like>(context, listen: false).setliked(false));
+            }
             if (!initialsend && playerstate.track.uri != null) {
               print('initial\n\n\n\n');
               channel.sink.add(jsonEncode({'songid': playerstate.track.uri}));
@@ -39,7 +49,7 @@ class PlayerStateWidget extends StatelessWidget {
               children: <Widget>[
                 const FittedBox(
                   fit: BoxFit.fitWidth,
-                  child: Text(
+                  child:  Text(
                     'Now Playing',
                     style: TextStyle(
                         fontFamily: '8bit',
@@ -62,7 +72,7 @@ class PlayerStateWidget extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      '${playerstate.track.artist.name},${playerstate.track.album.name}',
+                      '${playerstate.track.artist.name}',
                       style: const TextStyle(
                           fontFamily: '8bit',
                           color: Colors.white,
@@ -70,7 +80,7 @@ class PlayerStateWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                AlbumWidget(playerstate.track.imageUri),
+                _albumart,
                 Padding(
                   padding: EdgeInsets.all(0.0273 * height),
                   child: Row(
