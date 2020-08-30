@@ -9,6 +9,7 @@ import './pages/homePage.dart';
 import './pages/login_page.dart';
 import './pages/registrationPage.dart';
 import './pages/newbox.dart';
+import './pages/historypage.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
                     HomePage.routeName: (ctx) => HomePage(),
                     RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
                     NewBox.routeName: (ctx) => NewBox(),
+                    HistoryPage.routeName: (ctx) => HistoryPage(),
                   },
                   debugShowCheckedModeBanner: false,
                 )));

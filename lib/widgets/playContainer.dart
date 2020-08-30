@@ -49,6 +49,8 @@ class PlayContainer extends StatelessWidget {
         Scaffold.of(context).showSnackBar(snackbar);
       } else if (spotdata['message'].containsKey('song')) {
         SpotifySdk.getPlayerState().then((value) {
+          Provider.of<User>(context,listen: false).addsong(
+              spotdata['message']['user'], DateTime.now(), spotdata['message']['song']);
           if (value.track.artist == null ||
               value.track.name == 'Spotify' ||
               value.track.name == 'Advertisement')
@@ -110,9 +112,6 @@ class PlayContainer extends StatelessWidget {
                                 builder: (_) => ChannelBox(
                                     channel, user, () => posstream.cancel()),
                               ),
-                              // onTap: () => Navigator.of(context).pushNamed(
-                              //     NewBox.routeName,
-                              //     arguments: (text) => print(text)),
                               child: Image.asset(
                                 'assets/images/group.png',
                                 height: 0.082 * height,

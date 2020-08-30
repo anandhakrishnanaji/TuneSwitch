@@ -47,14 +47,14 @@ class PlayerStateWidget extends StatelessWidget {
             print(playerstate.track.name);
             return Column(
               children: <Widget>[
-                const FittedBox(
+                FittedBox(
                   fit: BoxFit.fitWidth,
-                  child:  Text(
+                  child: Text(
                     'Now Playing',
                     style: TextStyle(
                         fontFamily: '8bit',
                         color: Colors.white,
-                        fontSize: 48,
+                        fontSize: 0.0574 * height,
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -62,8 +62,10 @@ class PlayerStateWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   child: Text(
                     '${playerstate.track.name}',
-                    style: const TextStyle(
-                        fontFamily: '8bit', color: Colors.white, fontSize: 40),
+                    style: TextStyle(
+                        fontFamily: '8bit',
+                        color: Colors.white,
+                        fontSize: 0.0478 * height),
                     // softWrap: true,
                   ),
                 ),
@@ -73,10 +75,10 @@ class PlayerStateWidget extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Text(
                       '${playerstate.track.artist.name}',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: '8bit',
                           color: Colors.white,
-                          fontSize: 20),
+                          fontSize: 0.0273 * height),
                     ),
                   ),
                 ),

@@ -5,14 +5,19 @@ import './bottomSheetTile.dart';
 import './alertBox.dart';
 import '../providers/auth.dart';
 import '../pages/login_page.dart';
+import '../pages/historypage.dart';
 
 class BottomSheetColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        GestureDetector(child: BottomSheetTile('History'), onTap: null),
-        GestureDetector(child: BottomSheetTile('Stats'), onTap: null),
+        GestureDetector(
+            child: BottomSheetTile('History'),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(HistoryPage.routeName);
+            }),
         GestureDetector(
           child: BottomSheetTile('Donate'),
           onTap: () {
@@ -34,13 +39,23 @@ class BottomSheetColumn extends StatelessWidget {
           },
         ),
         GestureDetector(
+          child: BottomSheetTile('Report Bugs'),
+          onTap: () {
+            Navigator.of(context).pop();
+            showDialog(
+                context: context,
+                builder: (context) => AlertBoxx('Report', 'bug.png',
+                    'Noticed anything unusual?,Report bug by visiting https://github.com/anandhakrishnanaji/TuneSwitch/issues'));
+          },
+        ),
+        GestureDetector(
           child: BottomSheetTile('About'),
           onTap: () {
             Navigator.of(context).pop();
             showDialog(
                 context: context,
                 builder: (context) =>
-                    AlertBoxx('About', 'aboutus.png', 'anandhakris'));
+                    AlertBoxx('About', 'aboutus.png', 'Github: anandhakrishnanaji\nMail: creattech2000@gmail.com'));
           },
         ),
         GestureDetector(

@@ -46,8 +46,12 @@ class _ChannelBoxState extends State<ChannelBox> {
           ),
           value.isgroup
               ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(value.groups),
+                    Text(
+                      value.groups,
+                      style: TextStyle(fontSize: 30),
+                    ),
                     InkWell(
                       child: Image.asset(
                         'assets/images/power.png',
@@ -62,7 +66,7 @@ class _ChannelBoxState extends State<ChannelBox> {
                           value.setgroup(false, null);
                         });
                       },
-                    )
+                    ),
                   ],
                 )
               : Column(children: <Widget>[

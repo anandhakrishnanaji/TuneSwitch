@@ -9,7 +9,7 @@ class AlertBoxx extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: 0.205 * height, horizontal: 0.09722 * width),
+          vertical: 0.2 * height, horizontal: 0.097 * width),
       child: AlertDialog(
         backgroundColor: Colors.blueGrey[400],
         content: Column(
@@ -29,7 +29,7 @@ class AlertBoxx extends StatelessWidget {
             ),
             Text(
               text,
-              style: TextStyle(fontSize: 0.054 * height),
+              style: TextStyle(fontSize: 0.05 * height),
             ),
             Image.asset(
               'assets/images/$path',

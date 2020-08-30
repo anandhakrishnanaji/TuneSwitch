@@ -3,17 +3,30 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+class UserSong {
+  final String name;
+  final DateTime date;
+  final String song;
+  UserSong(this.name, this.date, this.song);
+}
+
 class User with ChangeNotifier {
   String _username = null;
   String _token = null;
-  
+
   static const urlpath = '192.168.1.22:8000';
+
+  List<UserSong> _history=[];
+
+  get history => _history;
 
   get token => _token;
 
   get username => _username;
 
-  
+  void addsong(String name, DateTime date, String song) {
+    _history.add(UserSong(name, date, song));
+  }
 
   Future<bool> login(String uname, String passw) async {
     const url = 'http://$urlpath/switch/login/';
