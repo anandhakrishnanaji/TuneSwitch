@@ -19,7 +19,7 @@ class PlayContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     print('build no\n\n\n\n\n');
 
-    const urlpath = '192.168.1.22:8000';
+    const urlpath = 'tuneswitch.herokuapp.com';
 
     final locationOptions =
         LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);

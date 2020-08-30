@@ -14,7 +14,7 @@ class User with ChangeNotifier {
   String _username = null;
   String _token = null;
 
-  static const urlpath = '192.168.1.22:8000';
+  static const urlpath = 'tuneswitch.herokuapp.com';
 
   List<UserSong> _history=[];
 
