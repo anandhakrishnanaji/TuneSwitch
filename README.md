@@ -1,4 +1,7 @@
-<p align="center"><img alt="logo" src="./Markdown/logoas.png" width="200" height="200"></p><img alt="TuneSwitch" src="./Markdown/tune.png" height="200"></p>
+<p align="center">
+  <img alt="logo" src="./Markdown/logoas.png" width="200" height="200">
+  <img alt="TuneSwitch" src="./Markdown/tune.png" height="200">
+</p>
 
 # TuneSwitch
 An open source playlist randomiser for Spotify.
