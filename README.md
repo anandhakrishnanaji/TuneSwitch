@@ -5,9 +5,9 @@
 ![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)
 ![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)
 ![forthebadge](https://img.shields.io/badge/made--with-flutter-blue?logo=flutter&style=for-the-badge)
-[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://github.com/anandhakrishnanaji/TuneSwitch/raw/master/release/TuneSwitch.apk)
+[![forthebadge](https://img.shields.io/badge/try-now-darkgreen?logo=android&style=for-the-badge)](https://github.com/anandhakrishnanaji/TuneSwitch/raw/master/release/TuneSwitch.apk)
 
-https://img.shields.io/badge/try-now-darkgreen?logo=android&style=for-the-badge
+
 
 # TuneSwitch
 An open source playlist randomiser for Spotify
