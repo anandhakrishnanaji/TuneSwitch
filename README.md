@@ -1,6 +1,5 @@
 <p align="center">
-  <img alt="logo" src="./Markdown/logoas.png" width="200" height="200">
-  <img alt="TuneSwitch" src="./Markdown/tune.png" height="300">
+  <img alt="TuneSwitch" src="./Markdown/tune.png" height="350">
 </p>
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
