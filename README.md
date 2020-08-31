@@ -1,7 +1,10 @@
 <p align="center">
   <img alt="logo" src="./Markdown/logoas.png" width="200" height="200">
-  <img alt="TuneSwitch" src="./Markdown/tunewo.png" height="200">
+  <img alt="TuneSwitch" src="./Markdown/tune.png" height="250">
 </p>
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
 
 # TuneSwitch
 An open source playlist randomiser for Spotify.
