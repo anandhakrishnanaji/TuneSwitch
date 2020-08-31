@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:flutter/services.dart';
+import 'package:tuneswitch/pages/carouselPage.dart';
 
 import './providers/auth.dart';
 import './pages/homePage.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
                     RegistrationScreen.routeName: (ctx) => RegistrationScreen(),
                     NewBox.routeName: (ctx) => NewBox(),
                     HistoryPage.routeName: (ctx) => HistoryPage(),
+                    CarouselPage.routeName: (ctx) => CarouselPage()
                   },
                   debugShowCheckedModeBanner: false,
                 )));

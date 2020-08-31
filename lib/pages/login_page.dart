@@ -5,6 +5,7 @@ import './registrationPage.dart';
 import '../providers/auth.dart';
 import '../widgets/alertBox.dart';
 import './homePage.dart';
+import './carouselPage.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = 'loginscreen';
@@ -128,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .then((value) {
                                 if (value)
                                   Navigator.of(context)
-                                      .pushNamed(HomePage.routeName);
+                                      .pushNamed(CarouselPage.routeName);
                               }).catchError((e) {
                                 print(e.toString());
                                 showDialog(

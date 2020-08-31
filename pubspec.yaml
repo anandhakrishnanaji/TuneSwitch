@@ -35,6 +35,7 @@ dependencies:
   fluttertoast: ^7.0.2
   crypto: ^2.1.4
   timeago: ^2.0.27
+  carousel_slider: ^2.2.1
 
 
 
@@ -89,6 +90,7 @@ flutter:
    - assets/images/lovew.png
    - assets/images/love1.png
    - assets/images/lovpop.gif
+   - assets/images/spot.png
    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
