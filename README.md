@@ -34,9 +34,9 @@ An open source playlist randomiser for Spotify.
 
 ## Screenshots
 <p float="left">
-  <img src="./Markdown/screenshots/login.png" width="240">
-  <img src="./Markdown/screenshots/player.png" width="240">
-  <img src="./Markdown/screenshots/channel.png" width="240">
+  <img src="./Markdown/screenshots/login.jpg" width="240">
+  <img src="./Markdown/screenshots/player.jpg" width="240">
+  <img src="./Markdown/screenshots/channel.jpg" width="240">
 </p>
 
 ## License
