@@ -1,6 +1,6 @@
 <p align="center">
   <img alt="logo" src="./Markdown/logoas.png" width="200" height="200">
-  <img alt="TuneSwitch" src="./Markdown/tune.png" height="200">
+  <img alt="TuneSwitch" src="./Markdown/tunewo.png" height="250">
 </p>
 
 # TuneSwitch
