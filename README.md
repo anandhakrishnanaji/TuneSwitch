@@ -68,5 +68,6 @@ The app swaps music played by users online in multiple methods namely Normal,Tra
 * Ads in spotify is not tolerated in some cases.
 
 
-## License
-Under MIT license, check the [license file]() for more detail.
+## Other
+For more details on local setup and working mail me at creattech2000@gmail.com
+
