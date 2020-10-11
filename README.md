@@ -66,6 +66,7 @@ The app swaps music played by users online in multiple methods namely Normal,Tra
 * No method to identify whether Spotify is installed in the running device.
 * Location based music swapping can be Improved.
 * Ads in spotify is not tolerated in some cases.
+* When deployed, the request response time out creates a problem.
 
 
 ## Other
