@@ -8,7 +8,7 @@ cffi==1.14.2
 channels==2.4.0
 channels-redis==2.4.2
 constantly==15.1.0
-cryptography==3.1
+cryptography==3.2
 daphne==2.5.0
 dj-database-url==0.5.0
 Django==3.0.7
